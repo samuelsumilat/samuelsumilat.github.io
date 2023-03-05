@@ -1,20 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
-        <title>Demo Bot Form</title>
-    </head>
-    <body>
-        <form>
-            <input type="text" id="nama" placeholder="Nama" />
-            <input type="text" id="email" placeholder="Email" />
-            <input type="text" id="pesan" placeholder="Pesan" />
-            <input type="button" id="kirim" value="KIRIM" onclick="kirimPesan()" />
-        </form>
-    </body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha512-+NqPlbbtM1QqiK8ZAo4Yrj2c4lNQoGv8P79DPtKzj++l5jnN39rHA/xsqn8zE9l0uSoxaCdrOgFs6yjyfbBxSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="main.js"></script>
+<html>
+  <head>
+    <title>Form Input Data Anak</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="jspdf.min.js"></script>
+  </head>
+  <body>
+    <h1>Pendaftaran Peserta Didik Baru</h1>
+    <form id="input-form" action="" method="POST">
+      <label for="nama-anak">Nama Anak</label>
+      <input type="text" id="nama-anak" name="nama-anak" required>
+      
+      <label for="nik-anak">Nomor NIK Anak</label>
+      <input type="number" id="nik-anak" name="nik-anak" required>
+      
+      <label for="tanggal-lahir">Tanggal Lahir</label>
+      <input type="date" id="tanggal-lahir" name="tanggal-lahir" required>
+      
+      <label for="nama-ortu">Nama Orang Tua</label>
+      <input type="text" id="nama-ortu" name="nama-ortu" required>
+      
+      <label for="alamat">Alamat Tampat Tinggal</label>
+      <textarea id="alamat" name="alamat" required></textarea>
+      
+      <label for="nomor-telepon">Nomor Telepon</label>
+      <input type="tel" id="nomor-telepon" name="nomor-telepon" required>
+      
+      <label for="alamat-email">Alamat Email</label>
+      <input type="email" id="alamat-email" name="alamat-email" required>
+      
+      
+      <label for="tanggal-pendaftaran">Tanggal Pendaftaran</label>
+      <input type="date" id="tanggal-pendaftaran" name="tanggal-pendaftaran" required>
+      
+      <input type="submit" value="Submit" onclick="sendData()">
+    </form>
+
+    <script src="script.js"></script>
+  </body>
 </html>
