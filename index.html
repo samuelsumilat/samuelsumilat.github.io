@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Guestbook</title>
+	<style>
+		form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-top: 50px;
+			font-size: 20px;
+			font-family: Arial, sans-serif;
+		}
+		input[type="text"], select {
+			padding: 10px;
+			margin: 10px;
+			width: 300px;
+			border-radius: 5px;
+			border: none;
+			box-shadow: 1px 1px 1px 1px #ccc;
+			font-size: 20px;
+		}
+		textarea {
+			padding: 10px;
+			margin: 10px;
+			width: 300px;
+			height: 100px;
+			border-radius: 5px;
+			border: none;
+			box-shadow: 1px 1px 1px 1px #ccc;
+			font-size: 20px;
+			resize: none;
+		}
+		input[type="submit"] {
+			padding: 10px;
+			margin: 10px;
+			width: 150px;
+			border-radius: 5px;
+			border: none;
+			background-color: #4CAF50;
+			color: white;
+			font-size: 20px;
+			cursor: pointer;
+		}
+		table {
+			margin-top: 50px;
+			border-collapse: collapse;
+			width: 100%;
+		}
+		th, td {
+			padding: 15px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+			font-size: 20px;
+			font-family: Arial, sans-serif;
+		}
+		th {
+			background-color: #4CAF50;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<form id="guestbook-form" action="">
+		<label for="name">Nama:</label>
+		<input type="text" id="name" name="name" required>
+		<label for="email">Email:</label>
+		<input type="text" id="email" name="email" required>
+		<label for="attend">Hadir:</label>
+		<select id="attend" name="attend">
+			<option value="yes">Ya</option>
+			<option value="no">Tidak</option>
+		</select>
+		<label for="message">Ucapan Komentar:</label>
+		<textarea id="message" name="message"></textarea>
+		<input type="submit" value="Kirim">
+	</form>
+	<table id="guestbook-table">
+		<thead>
+			<tr>
+				<th>Nama</th>
+				<th>Email</th>
+				<th>Hadir</th>
+				<th>Ucapan Komentar</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	<script src="guestbook.js"></script>
+</body>
+</html>
