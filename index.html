@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/guestbook.css">
+</head>
+<body>
+    <h1>Buku Tamu</h1>
+    <form id="guestBookForm">
+        <label for="name">Nama:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="message">Pesan:</label>
+        <textarea id="message" name="message" required></textarea><br>
+        <label for="attendance">Kehadiran:</label>
+        <select id="attendance" name="attendance">
+            <option value="Datang">Datang</option>
+            <option value="Tidak Datang">Tidak Datang</option>
+        </select><br>
+        <button type="submit">Kirim</button>
+    </form>
+
+    <div id="guestList">
+        <!-- Data akan ditampilkan di sini -->
+    </div>
+    
+    <script src="js/guestbook.js"></script>
+
+    <script src="https://script.google.com/macros/s/AKfycbxpzy3N4AOLAOJPhHRUwSTxj09pXZwXwqyQO3pmT5H1P0IOShkYFQia2Zj6vzQMFt8XJSQ/exec"></script>
+    
+</body>
+</html>
