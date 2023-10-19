@@ -1,28 +1,56 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Buku Tamu Pernikahan</title>
-  <link rel="stylesheet" type="text/css" href="css/guestbook.css">
-</head>
-<body>
-  <h1>Selamat Datang di Buku Tamu Pernikahan</h1>
-  <form id="guestbook-form">
-    <label for="nama">Nama:</label>
-    <input type="text" id="nama" name="nama" required><br><br>
-    
-    <label for="ucapan">Ucapan:</label>
-    <textarea id="ucapan" name="ucapan" required></textarea><br><br>
-    
-    <label for="kehadiran">Kehadiran:</label>
-    <select id="kehadiran" name="kehadiran">
-      <option value="ada">Ada</option>
-      <option value="tidak">Tidak</option>
-    </select><br><br>
-    
-    <button type="submit">Kirim</button>
-  </form>
+  <head>
+    <base target="_top">
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    <h1>Form Buku Tamu</h1>
+    <form id="guestbook-form">
+      <label for="nama">Nama:</label>
+      <input type="text" id="nama" name="nama" required><br>
+      <label for="pesan">Pesan:</label>
+      <textarea id="pesan" name="pesan" required></textarea><br>
+      <label for="kehadiran">Kehadiran:</label>
+      <select id="kehadiran" name="kehadiran" required>
+        <option value="Hadir">Hadir</option>
+        <option value="Tidak Hadir">Tidak Hadir</option>
+      </select><br>
+      <input type="submit" value="Kirim Pesan">
+    </form>
+    <div id="results">
+      <!-- Hasil akan ditampilkan di sini -->
+    </div>
+    <script>
+      // Tambahkan kode JavaScript di sini
+      document.getElementById('guestbook-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var nama = document.getElementById('nama').value;
+        var pesan = document.getElementById('pesan').value;
+        var kehadiran = document.getElementById('kehadiran').value;
+        google.script.run.doPost({ nama: nama, pesan: pesan, kehadiran: kehadiran });
+        document.getElementById('nama').value = '';
+        document.getElementById('pesan').value = '';
+        document.getElementById('kehadiran').value = '';
+        fetchGuestbookEntries();
+      });
 
-  <script src="https://script.google.com/macros/s/AKfycbxz-CADxJbAudyFnjPTJ_n0rSo0j9tb10Pq6RSXn4fwvLUmUvZLkUk8_sQlfI-KPDb5ZQ/exec"></script>
-  <script src="js/guestbook.js"></script>
-</body>
+      function fetchGuestbookEntries() {
+        google.script.run.withSuccessHandler(displayGuestbookEntries).getGuestbookEntries();
+      }
+
+      function displayGuestbookEntries(entries) {
+        var resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = '<h2>Pesan-pesan Tamu:</h2>';
+        entries.forEach(function(entry) {
+          resultsDiv.innerHTML += '<p><strong>' + entry[0] + '</strong> (' + entry[2] + '): ' + entry[1] + '</p>';
+        });
+      }
+
+      // Panggil fetchGuestbookEntries saat halaman dimuat
+      google.script.run.withSuccessHandler(displayGuestbookEntries).getGuestbookEntries();
+    </script>
+  </body>
 </html>
