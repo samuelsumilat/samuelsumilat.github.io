@@ -1,30 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="css/guestbook.css">
+  <title>Buku Tamu Pernikahan</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-    <h1>Buku Tamu</h1>
-    <form id="guestBookForm">
-        <label for="name">Nama:</label>
-        <input type="text" id="name" name="name" required><br>
-        <label for="message">Pesan:</label>
-        <textarea id="message" name="message" required></textarea><br>
-        <label for="attendance">Kehadiran:</label>
-        <select id="attendance" name="attendance">
-            <option value="Datang">Datang</option>
-            <option value="Tidak Datang">Tidak Datang</option>
-        </select><br>
-        <button type="submit">Kirim</button>
-    </form>
-
-    <div id="guestList">
-        <!-- Data akan ditampilkan di sini -->
-    </div>
+  <h1>Selamat Datang di Buku Tamu Pernikahan</h1>
+  <form id="guestbook-form">
+    <label for="nama">Nama:</label>
+    <input type="text" id="nama" name="nama" required><br><br>
     
-    <script src="js/guestbook.js"></script>
-
-    <script src="https://script.google.com/macros/s/AKfycbxpzy3N4AOLAOJPhHRUwSTxj09pXZwXwqyQO3pmT5H1P0IOShkYFQia2Zj6vzQMFt8XJSQ/exec"></script>
+    <label for="ucapan">Ucapan:</label>
+    <textarea id="ucapan" name="ucapan" required></textarea><br><br>
     
+    <label for="kehadiran">Kehadiran:</label>
+    <select id="kehadiran" name="kehadiran">
+      <option value="ada">Ada</option>
+      <option value="tidak">Tidak</option>
+    </select><br><br>
+    
+    <button type="submit">Kirim</button>
+  </form>
+
+  <script src="https://script.google.com/macros/s/AKfycbxz-CADxJbAudyFnjPTJ_n0rSo0j9tb10Pq6RSXn4fwvLUmUvZLkUk8_sQlfI-KPDb5ZQ/exec"></script>
+  <script src="js/guestbook.js"></script>
 </body>
 </html>
