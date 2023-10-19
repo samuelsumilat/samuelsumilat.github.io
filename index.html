@@ -7,50 +7,30 @@
     </style>
   </head>
   <body>
-    <h1>Form Buku Tamu</h1>
-    <form id="guestbook-form">
-      <label for="nama">Nama:</label>
-      <input type="text" id="nama" name="nama" required><br>
-      <label for="pesan">Pesan:</label>
-      <textarea id="pesan" name="pesan" required></textarea><br>
-      <label for="kehadiran">Kehadiran:</label>
-      <select id="kehadiran" name="kehadiran" required>
-        <option value="Hadir">Hadir</option>
-        <option value="Tidak Hadir">Tidak Hadir</option>
-      </select><br>
-      <input type="submit" value="Kirim Pesan">
-    </form>
-    <div id="results">
-      <!-- Hasil akan ditampilkan di sini -->
-    </div>
-    <script>
-      // Tambahkan kode JavaScript di sini
-      document.getElementById('guestbook-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        var nama = document.getElementById('nama').value;
-        var pesan = document.getElementById('pesan').value;
-        var kehadiran = document.getElementById('kehadiran').value;
-        google.script.run.doPost({ nama: nama, pesan: pesan, kehadiran: kehadiran });
-        document.getElementById('nama').value = '';
-        document.getElementById('pesan').value = '';
-        document.getElementById('kehadiran').value = '';
-        fetchGuestbookEntries();
-      });
+     <form id="guestbookForm">
+  Nama: <input type="text" name="nama"><br>
+  Kehadiran: <input type="radio" name="kehadiran" value="Datang"> Datang
+             <input type="radio" name="kehadiran" value="Tidak Datang"> Tidak Datang<br>
+  Ucapan: <textarea name="ucapan"></textarea><br>
+      <input type="submit" value="Kirim">
+      </form>
 
-      function fetchGuestbookEntries() {
-        google.script.run.withSuccessHandler(displayGuestbookEntries).getGuestbookEntries();
-      }
-
-      function displayGuestbookEntries(entries) {
-        var resultsDiv = document.getElementById('results');
-        resultsDiv.innerHTML = '<h2>Pesan-pesan Tamu:</h2>';
-        entries.forEach(function(entry) {
-          resultsDiv.innerHTML += '<p><strong>' + entry[0] + '</strong> (' + entry[2] + '): ' + entry[1] + '</p>';
-        });
-      }
-
-      // Panggil fetchGuestbookEntries saat halaman dimuat
-      google.script.run.withSuccessHandler(displayGuestbookEntries).getGuestbookEntries();
-    </script>
-  </body>
-</html>
+<script>
+document.getElementById("guestbookForm").onsubmit = function(e) {
+  e.preventDefault();
+  var data = new FormData(this);
+  fetch('https://script.google.com/macros/s/AKfycbzf9sScQFfSS3X2NSdEoN3zObMKRvF8-rC3-W7uW-mEgB1-Z27M/exec', {
+    method: 'POST',
+    body: data
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.result === 'success') {
+      alert('Data berhasil disimpan.');
+    } else {
+      alert('Gagal menyimpan data.');
+    }
+  });
+}
+</script>
+   </body>
