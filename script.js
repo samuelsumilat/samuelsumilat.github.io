@@ -1,19 +1,22 @@
-document.getElementById("guestForm").addEventListener("submit", function (e) {
-    e.preventDefault();
+document.getElementById("attendance-form").addEventListener("submit", function (event) {
+    event.preventDefault();
 
-    // Ambil nilai dari formulir
-    var formData = new FormData(this);
+    const name = document.getElementById("name").value;
+    const attendance = document.getElementById("attendance").value;
 
-    // Kirim data ke REST API
-    fetch('https://script.google.com/macros/s/AKfycbwNPmG4eV4WTPXopS5zZjtE5kP2EBw0dakQhv27QlgWl5dGOixP6kLX4wD91I6dsQZ04A/exec', {
+    fetch('https://sheetdb.io/api/v1/kdsonik1p4mdq', {
         method: 'POST',
-        body: formData
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, attendance }),
     })
     .then(response => response.json())
     .then(data => {
-        // Tambahkan logika penanganan respons dari API (misalnya, pesan sukses)
+        // Tampilkan respons dari REST API di bawah formulir
+        document.getElementById("response").innerText = `Data Terkirim: Nama - ${data.name}, Kehadiran - ${data.attendance}`;
     })
     .catch(error => {
-        // Tambahkan logika penanganan kesalahan
+        console.error('Terjadi kesalahan:', error);
     });
 });
