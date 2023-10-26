@@ -1,86 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Buku Tamu</title>
+    <title>Formulir dan Postingan</title>
     <style>
-        /* CSS untuk tampilan postingan */
         .post {
             border: 1px solid #ccc;
             padding: 10px;
             margin: 10px;
-            background-color: #f5f5f5;
+            background-color: #f9f9f9;
         }
     </style>
 </head>
 <body>
-    <h1>Buku Tamu</h1>
-
-    <!-- Formulir isian -->
-    <form id="guestForm">
+    <h1>Formulir Kirim Data</h1>
+    <form id="dataForm">
         <label for="name">Nama:</label>
-        <input type="text" id="name" name="name" required><br>
+        <input type="text" id="name" required><br>
 
         <label for="attendance">Kehadiran:</label>
-        <select id="attendance" name="attendance">
-            <option value="hadir">Hadir</option>
-            <option value="belum pasti">Belum Pasti</option>
-            <option value="tidak hadir">Tidak Hadir</option>
+        <select id="attendance">
+            <option value="Hadir">Hadir</option>
+            <option value="Belum Pasti">Belum Pasti</option>
+            <option value="Tidak Hadir">Tidak Hadir</option>
         </select><br>
 
         <label for="message">Ucapan:</label>
-        <textarea id="message" name="message" rows="4" required></textarea><br>
+        <textarea id="message" rows="4"></textarea><br>
 
-        <input type="submit" value="Kirim">
+        <button type="submit">Kirim</button>
     </form>
 
-    <!-- Daftar postingan -->
+    <h1>Postingan</h1>
     <div id="posts"></div>
 
     <script>
-        // Fungsi untuk menampilkan data
-        function fetchPosts() {
-            fetch('https://sheetdb.io/api/v1/kdsonik1p4mdq')
-                .then(response => response.json())
-                .then(data => {
-                    const postsContainer = document.getElementById('posts');
-                    postsContainer.innerHTML = '';
+        const form = document.getElementById('dataForm');
+        const postsContainer = document.getElementById('posts');
 
-                    data.forEach(post => {
-                        const postElement = document.createElement('div');
-                        postElement.classList.add('post');
-                        postElement.innerHTML = `
-                            <strong>Nama:</strong> ${post.name}<br>
-                            <strong>Kehadiran:</strong> ${post.attendance}<br>
-                            <strong>Ucapan:</strong> ${post.message}
-                        `;
-                        postsContainer.appendChild(postElement);
-                    });
-                });
-        }
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
 
-        // Menampilkan postingan saat halaman dimuat
-        fetchPosts();
+            const name = document.getElementById('name').value;
+            const attendance = document.getElementById('attendance').value;
+            const message = document.getElementById('message').value;
 
-        // Fungsi untuk mengirim data ke API
-        document.getElementById('guestForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            const formData = new FormData(event.target);
+            const data = {
+                Name: name,
+                Kehadiran: attendance,
+                Ucapan: message
+            };
 
             fetch('https://sheetdb.io/api/v1/kdsonik1p4mdq', {
                 method: 'POST',
-                body: JSON.stringify(Object.fromEntries(formData)),
                 headers: {
                     'Content-Type': 'application/json'
-                }
+                },
+                body: JSON.stringify(data)
             })
             .then(response => response.json())
-            .then(() => {
-                fetchPosts(); // Memperbarui tampilan dengan data terbaru
-                event.target.reset(); // Mengosongkan formulir
+            .then(data => {
+                console.log(data);
+                // Reset the form
+                form.reset();
+                // Refresh the posts
+                fetchPosts();
             });
         });
+
+        function fetchPosts() {
+            fetch('https://sheetdb.io/api/v1/kdsonik1p4mdq')
+            .then(response => response.json())
+            .then(data => {
+                postsContainer.innerHTML = '';
+                data.forEach(post => {
+                    const postDiv = document.createElement('div');
+                    postDiv.className = 'post';
+                    postDiv.innerHTML = `
+                        <h3>Nama: ${post.Name}</h3>
+                        <p>Kehadiran: ${post.Kehadiran}</p>
+                        <p>Ucapan: ${post.Ucapan}</p>
+                    `;
+                    postsContainer.appendChild(postDiv);
+                });
+            });
+        }
+
+        // Fetch and display posts on page load
+        fetchPosts();
     </script>
 </body>
 </html>
