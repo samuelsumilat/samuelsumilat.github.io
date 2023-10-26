@@ -5,7 +5,7 @@ document.getElementById("guestForm").addEventListener("submit", function (e) {
     var formData = new FormData(this);
 
     // Kirim data ke REST API
-    fetch('URL_API_ANDA', {
+    fetch('https://script.google.com/macros/s/AKfycbwNPmG4eV4WTPXopS5zZjtE5kP2EBw0dakQhv27QlgWl5dGOixP6kLX4wD91I6dsQZ04A/exec', {
         method: 'POST',
         body: formData
     })
