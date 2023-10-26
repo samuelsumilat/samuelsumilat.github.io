@@ -1,28 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Form Buku Tamu</title>
 </head>
 <body>
-    <h1>Form Isian Undangan Pernikahan</h1>
-    <form id="weddingForm">
-        <label for="nama">Nama:</label>
-        <input type="text" id="nama" name="nama" required><br><br>
-        
-        <label for="kehadiran">Kehadiran:</label>
-        <select id="kehadiran" name="kehadiran">
-            <option value="datang">Datang</option>
-            <option value="tidakdatang">Tidak Datang</option>
-        </select><br><br>
-
-        <label for="ucapan">Ucapan:</label>
-        <textarea id="ucapan" name="ucapan" rows="4" cols="50"></textarea><br><br>
-        
-        <button type="button" onclick="submitForm()">Submit</button>
+    <form id="guestForm">
+        Nama: <input type="text" name="nama" required><br>
+        Kehadiran:
+        <select name="kehadiran" required>
+            <option value="Hadir">Hadir</option>
+            <option value="Belum Pasti">Belum Pasti</option>
+            <option value="Tidak Hadir">Tidak Hadir</option>
+        </select><br>
+        Ucapan: <textarea name="ucapan" required></textarea><br>
+        <button type="submit">Submit</button>
     </form>
-    
-    <div id="hasil"></div>
-    
-    <script src="app.js"></script>
 </body>
 </html>
