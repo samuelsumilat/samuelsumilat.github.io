@@ -1,83 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <title>Buku Tamu</title>
     <style>
-        /* Gaya tampilan postingan */
+        /* CSS untuk tampilan postingan */
         .post {
-            background-color: #f0f0f0;
+            border: 1px solid #ccc;
             padding: 10px;
             margin: 10px;
-            border: 1px solid #ddd;
+            background-color: #f5f5f5;
         }
     </style>
 </head>
 <body>
-    <!-- Formulir -->
-    <form id="data-form">
-        <label for="nama">Nama:</label>
-        <input type="text" id="nama" required>
+    <h1>Buku Tamu</h1>
 
-        <label for="kehadiran">Kehadiran:</label>
-        <input type="text" id="kehadiran" required>
+    <!-- Formulir isian -->
+    <form id="guestForm">
+        <label for="name">Nama:</label>
+        <input type="text" id="name" name="name" required><br>
 
-        <label for="ucapan">Ucapan:</label>
-        <textarea id="ucapan" rows="4" required></textarea>
+        <label for="attendance">Kehadiran:</label>
+        <select id="attendance" name="attendance">
+            <option value="hadir">Hadir</option>
+            <option value="belum pasti">Belum Pasti</option>
+            <option value="tidak hadir">Tidak Hadir</option>
+        </select><br>
 
-        <button type="submit">Kirim</button>
+        <label for="message">Ucapan:</label>
+        <textarea id="message" name="message" rows="4" required></textarea><br>
+
+        <input type="submit" value="Kirim">
     </form>
 
-    <!-- Container untuk Postingan -->
-    <div id="post-container"></div>
+    <!-- Daftar postingan -->
+    <div id="posts"></div>
 
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // URL API Google Sheets
-        const apiURL = "https://sheetdb.io/api/v1/kdsonik1p4mdq";
+        // Fungsi untuk menampilkan data
+        function fetchPosts() {
+            fetch('https://sheetdb.io/api/v1/kdsonik1p4mdq')
+                .then(response => response.json())
+                .then(data => {
+                    const postsContainer = document.getElementById('posts');
+                    postsContainer.innerHTML = '';
 
-        const dataForm = document.getElementById("data-form");
-        dataForm.addEventListener("submit", function(e) {
-            e.preventDefault();
-            const nama = document.getElementById("nama").value;
-            const kehadiran = document.getElementById("kehadiran").value;
-            const ucapan = document.getElementById("ucapan").value;
+                    data.forEach(post => {
+                        const postElement = document.createElement('div');
+                        postElement.classList.add('post');
+                        postElement.innerHTML = `
+                            <strong>Nama:</strong> ${post.name}<br>
+                            <strong>Kehadiran:</strong> ${post.attendance}<br>
+                            <strong>Ucapan:</strong> ${post.message}
+                        `;
+                        postsContainer.appendChild(postElement);
+                    });
+                });
+        }
 
-            const data = {
-                data: {
-                    "Nama": nama,
-                    "Kehadiran": kehadiran,
-                    "Ucapan": ucapan
-                }
-            };
+        // Menampilkan postingan saat halaman dimuat
+        fetchPosts();
 
-            // Kirim data ke URL API
-            fetch(apiURL, {
-                method: "POST",
+        // Fungsi untuk mengirim data ke API
+        document.getElementById('guestForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+
+            fetch('https://sheetdb.io/api/v1/kdsonik1p4mdq', {
+                method: 'POST',
+                body: JSON.stringify(Object.fromEntries(formData)),
                 headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
+                    'Content-Type': 'application/json'
+                }
             })
             .then(response => response.json())
-            .then(data => {
-                const postsContainer = document.getElementById("post-container");
-
-                // Tampilkan data yang baru ditambahkan dalam postingan
-                const post = document.createElement("div");
-                post.classList.add("post");
-                post.innerHTML = `
-                    <p><strong>${nama}</strong></p>
-                    <p>Kehadiran: ${kehadiran}</p>
-                    <p>Ucapan: ${ucapan}</p>
-                `;
-
-                postsContainer.appendChild(post);
-
-                // Bersihkan formulir
-                dataForm.reset();
-            })
-            .catch(error => console.error("Error:", error));
+            .then(() => {
+                fetchPosts(); // Memperbarui tampilan dengan data terbaru
+                event.target.reset(); // Mengosongkan formulir
+            });
         });
-    });
     </script>
 </body>
 </html>
