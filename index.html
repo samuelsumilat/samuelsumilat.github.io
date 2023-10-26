@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <title>Form dan Data</title>
@@ -23,9 +23,9 @@ function kirimData() {
   const nama = document.getElementById('nama').value;
   const kehadiran = document.getElementById('kehadiran').value;
 
-  const data = { nama, kehadiran };
+  const data = { nama, kehadiran, ucapan: '' };
 
-  fetch('https://sheetdb.io/api/v1/kdsonik1p4mdq', {
+  fetch('URL_ENDPOINT_API_SHEETDB', {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
@@ -35,10 +35,14 @@ function kirimData() {
     .then((response) => response.json())
     .then((data) => {
       console.log('Data berhasil dikirim:', data);
-      
-      // Perbarui elemen hasilInput untuk menampilkan data yang telah dimasukkan.
+
+      // Perbarui elemen hasilInput untuk menampilkan data dalam format yang sesuai.
       const hasilInput = document.getElementById('hasilInput');
-      hasilInput.innerHTML = `Nama: ${data.nama}, Kehadiran: ${data.kehadiran}`;
+      hasilInput.innerHTML = JSON.stringify(data);
+
+      // Bersihkan input setelah data berhasil dikirim.
+      document.getElementById('nama').value = '';
+      document.getElementById('kehadiran').value = '';
     })
     .catch((error) => {
       console.error('Terjadi kesalahan:', error);
