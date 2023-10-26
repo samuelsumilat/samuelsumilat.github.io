@@ -1,77 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Buku Tamu</title>
+    <title>Formulir Kehadiran</title>
 </head>
 <body>
-    <h1>Buku Tamu</h1>
+    <form id="attendance-form">
+        <label for="name">Nama:</label>
+        <input type="text" id="name" name="name" required><br>
 
-    <form id="guestbook-form">
-        <input type="text" id="name" placeholder="Nama" required>
-        <select id="attendance" required>
-            <option value="Pasti Hadir">Pasti Hadir</option>
-            <option value="Belum Pasti Hadir">Belum Pasti Hadir</option>
-            <option value="Tidak Bisa Hadir">Tidak Bisa Hadir</option>
-        </select>
-        <textarea id="message" placeholder="Ucapan" required></textarea>
-        <button type="submit">Kirim</button>
+        <label for="attendance">Kehadiran:</label>
+        <select id="attendance" name="attendance">
+            <option value="hadir">Hadir</option>
+            <option value="belum-pasti-hadir">Belum Pasti Hadir</option>
+            <option value="tidak-bisa-hadir">Tidak Bisa Hadir</option>
+        </select><br>
+
+        <input type="submit" value="Kirim">
     </form>
 
-    <div id="guestbook-container">
-        <!-- Komentar akan ditampilkan di sini -->
-    </div>
-
-    <script>
-        // Kode JavaScript untuk mengirim data ke API dan menampilkan data
-        document.getElementById("guestbook-form").addEventListener("submit", function (e) {
-            e.preventDefault();
-            const name = document.getElementById("name").value;
-            const attendance = document.getElementById("attendance").value;
-            const message = document.getElementById("message").value;
-
-            const data = {
-                Name: name,
-                Attendance: attendance,
-                Message: message,
-            };
-
-            fetch("https://sheetdb.io/api/v1/kdsonik1p4mdq", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    // Data berhasil dikirim, tambahkan komentar
-                    const comment = document.createElement("div");
-                    comment.className = "comment";
-                    comment.innerHTML = `<strong>${data.Name}</strong> (${data.Attendance})<br>${data.Message}`;
-                    document.getElementById("guestbook-container").appendChild(comment);
-                })
-                .catch((error) => {
-                    console.error("Gagal mengirim data:", error);
-                });
-
-            // Reset formulir
-            document.getElementById("guestbook-form").reset();
-        });
-
-        // Ambil data dari API dan tampilkan
-        fetch("https://sheetdb.io/api/v1/kdsonik1p4mdq")
-            .then((response) => response.json())
-            .then((data) => {
-                data.forEach((entry) => {
-                    const comment = document.createElement("div");
-                    comment.className = "comment";
-                    comment.innerHTML = `<strong>${entry.Name}</strong> (${entry.Attendance})<br>${entry.Message}`;
-                    document.getElementById("guestbook-container").appendChild(comment);
-                });
-            })
-            .catch((error) => {
-                console.error("Gagal mengambil data:", error);
-            });
-    </script>
+    <div id="response"></div>
+    <script src="script.js"></script>
 </body>
 </html>
