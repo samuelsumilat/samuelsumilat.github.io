@@ -1,24 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Formulir Kehadiran</title>
+    <title>Form dan REST API</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <form id="attendance-form">
-        <label for="name">Nama:</label>
-        <input type="text" id="name" name="name" required><br>
-
-        <label for="attendance">Kehadiran:</label>
-        <select id="attendance" name="attendance">
+    <form id="inputForm">
+        <label for="nama">Nama:</label>
+        <input type="text" id="nama" name="nama" required>
+       
+        <label for="kehadiran">Kehadiran:</label>
+        <select id="kehadiran" name="kehadiran">
             <option value="hadir">Hadir</option>
             <option value="belum-pasti-hadir">Belum Pasti Hadir</option>
-            <option value="tidak-bisa-hadir">Tidak Bisa Hadir</option>
-        </select><br>
+            <option value="tidak-hadir">Tidak Hadir</option>
+        </select>
 
-        <input type="submit" value="Kirim">
+        <label for="ucapan">Ucapan:</label>
+        <textarea id="ucapan" name="ucapan" rows="4" required></textarea>
+       
+        <button type="submit">Kirim</button>
     </form>
 
-    <div id="response"></div>
-    <script src="script.js"></script>
+    <div id="postingan">
+        <!-- Hasil input akan ditampilkan di sini -->
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#inputForm").submit(function(e) {
+                e.preventDefault();
+                const nama = $("#nama").val();
+                const kehadiran = $("#kehadiran").val();
+                const ucapan = $("#ucapan").val();
+                const data = { nama, kehadiran, ucapan };
+
+                // Kirim data ke REST API di sheetdb.io
+                $.ajax({
+                    type: "POST",
+                    url: "https://sheetdb.io/api/v1/kdsonik1p4mdq/records", // URL API sheetdb.io
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    success: function(response) {
+                        // Tampilkan postingan hasil di bawah form
+                        $("#postingan").append("<p>" + response[0].nama + " - " + response[0].kehadiran + "</p>");
+                        $("#postingan").append("<p>Ucapan: " + response[0].ucapan + "</p>");
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
