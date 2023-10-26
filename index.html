@@ -14,18 +14,18 @@
 <body>
     <h1>Formulir Kirim Data</h1>
     <form id="dataForm">
-        <label for="name">Nama:</label>
-        <input type="text" id="name" required><br>
+        <label for="nama">Nama:</label>
+        <input type="text" id="nama" required><br>
 
-        <label for="attendance">Kehadiran:</label>
-        <select id="attendance">
+        <label for="kehadiran">Kehadiran:</label>
+        <select id="kehadiran">
             <option value="Hadir">Hadir</option>
             <option value="Belum Pasti">Belum Pasti</option>
             <option value="Tidak Hadir">Tidak Hadir</option>
         </select><br>
 
-        <label for="message">Ucapan:</label>
-        <textarea id="message" rows="4"></textarea><br>
+        <label for="ucapan">Ucapan:</label>
+        <textarea id="ucapan" rows="4"></textarea><br>
 
         <button type="submit">Kirim</button>
     </form>
@@ -40,14 +40,14 @@
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            const name = document.getElementById('name').value;
-            const attendance = document.getElementById('attendance').value;
-            const message = document.getElementById('message').value;
+            const name = document.getElementById('nama').value;
+            const attendance = document.getElementById('kehadiran').value;
+            const message = document.getElementById('ucapan').value;
 
             const data = {
-                Name: name,
-                Kehadiran: attendance,
-                Ucapan: message
+                Nama: nama,
+                Kehadiran: kehadiran,
+                Ucapan: ucapan
             };
 
             fetch('https://sheetdb.io/api/v1/kdsonik1p4mdq', {
@@ -76,7 +76,7 @@
                     const postDiv = document.createElement('div');
                     postDiv.className = 'post';
                     postDiv.innerHTML = `
-                        <h3>Nama: ${post.Name}</h3>
+                        <h3>Nama: ${post.Nama}</h3>
                         <p>Kehadiran: ${post.Kehadiran}</p>
                         <p>Ucapan: ${post.Ucapan}</p>
                     `;
