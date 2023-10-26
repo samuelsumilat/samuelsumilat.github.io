@@ -2,8 +2,8 @@
 <html>
 <head>
     <style>
-        /* Gaya tampilan postingan dan ucapan */
-        .post, .greeting {
+        /* Gaya tampilan postingan */
+        .post {
             background-color: #f0f0f0;
             padding: 10px;
             margin: 10px;
@@ -12,57 +12,44 @@
     </style>
 </head>
 <body>
-    <!-- Form Kehadiran -->
-    <form id="attendance-form">
+    <!-- Formulir -->
+    <form id="data-form">
         <label for="nama">Nama:</label>
         <input type="text" id="nama" required>
-        
+
         <label for="kehadiran">Kehadiran:</label>
-        <div>
-            <input type="radio" id="hadir" name="kehadiran" value="Hadir" required>
-            <label for="hadir">Hadir</label>
-        </div>
-        <div>
-            <input type="radio" id="belum-pasti" name="kehadiran" value="Belum Pasti" required>
-            <label for="belum-pasti">Belum Pasti</label>
-        </div>
-        <div>
-            <input type="radio" id="tidak-hadir" name="kehadiran" value="Tidak Hadir" required>
-            <label for="tidak-hadir">Tidak Hadir</label>
-        </div>
-        
-        <!-- Form Ucapan di dalam Form Kehadiran -->
+        <input type="text" id="kehadiran" required>
+
         <label for="ucapan">Ucapan:</label>
         <textarea id="ucapan" rows="4" required></textarea>
-        
+
         <button type="submit">Kirim</button>
     </form>
 
     <!-- Container untuk Postingan -->
     <div id="post-container"></div>
-    <div id="greeting-container"></div>
 
     <script>
     document.addEventListener("DOMContentLoaded", function() {
+        // URL API Google Sheets
         const apiURL = "https://sheetdb.io/api/v1/kdsonik1p4mdq";
 
-        const attendanceForm = document.getElementById("attendance-form");
-        attendanceForm.addEventListener("submit", function(e) {
+        const dataForm = document.getElementById("data-form");
+        dataForm.addEventListener("submit", function(e) {
             e.preventDefault();
             const nama = document.getElementById("nama").value;
-            const kehadiran = document.querySelector('input[name="kehadiran"]:checked').value;
+            const kehadiran = document.getElementById("kehadiran").value;
             const ucapan = document.getElementById("ucapan").value;
 
-            // Kirim data ke URL API baru
             const data = {
                 data: {
                     "Nama": nama,
                     "Kehadiran": kehadiran,
-                    "Ucapan": ucapan,
-                    "Timestamp": new Date().toISOString()
+                    "Ucapan": ucapan
                 }
             };
 
+            // Kirim data ke URL API
             fetch(apiURL, {
                 method: "POST",
                 headers: {
@@ -72,18 +59,21 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Setelah berhasil, tampilkan postingan baru
-                const postContainer = document.getElementById("post-container");
-                postContainer.innerHTML = `
-                    <div class="post">
-                        <p><strong>${nama}</strong></p>
-                        <p>Kehadiran: ${kehadiran}</p>
-                        <p>Ucapan: ${ucapan}</p>
-                    </div>
-                ` + postContainer.innerHTML;
+                const postsContainer = document.getElementById("post-container");
+
+                // Tampilkan data yang baru ditambahkan dalam postingan
+                const post = document.createElement("div");
+                post.classList.add("post");
+                post.innerHTML = `
+                    <p><strong>${nama}</strong></p>
+                    <p>Kehadiran: ${kehadiran}</p>
+                    <p>Ucapan: ${ucapan}</p>
+                `;
+
+                postsContainer.appendChild(post);
 
                 // Bersihkan formulir
-                attendanceForm.reset();
+                dataForm.reset();
             })
             .catch(error => console.error("Error:", error));
         });
