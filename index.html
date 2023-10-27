@@ -78,9 +78,9 @@
             if (response.ok) {
                 // Tambahkan data yang baru ditambahkan ke tampilan di bawah form
                 guestbookEntries.innerHTML += `
-                    <p><strong>Nama:</strong> ${data.nama}</p>
-                    <p><strong>Kehadiran:</strong> ${data.kehadiran}</p>
-                    <p><strong>Ucapan:</strong> ${data.ucapan}</p>
+                    <h4 class="guestbook-nama">${data.nama}</p>
+                    <h5 class="guestbook-kehadiran>${data.kehadiran}</p>
+                    <p class="guestbook-ucapan"><strong>Ucapan:</strong> ${data.ucapan}</p>
                     <hr>
                 `;
                 guestbookForm.reset();
