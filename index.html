@@ -9,6 +9,10 @@
             margin: 10px;
             background-color: #f9f9f9;
         }
+
+        .post h5 {
+            color: red;
+        }
         
     </style>
 </head>
@@ -78,7 +82,7 @@
                     postDiv.className = 'post';
                     postDiv.innerHTML = `
                         <h3>${post.Nama}</h3>
-                        <h6>${post.Kehadiran}</h6>
+                        <h5>${post.Kehadiran}</h5>
                         <p>Ucapan: ${post.Ucapan}</p>
                     `;
                     postsContainer.appendChild(postDiv);
