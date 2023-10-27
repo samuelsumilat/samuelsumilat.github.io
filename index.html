@@ -23,12 +23,39 @@
     </form>
 
     <div id="guestbook-entries">
-        <!-- Data akan ditampilkan di sini -->
+        <!-- Data dari API akan ditampilkan di sini -->
     </div>
 
     <script>
         const guestbookForm = document.getElementById("guestbook-form");
         const guestbookEntries = document.getElementById("guestbook-entries");
+
+        async function fetchGuestbookData() {
+            const response = await fetch("https://guestbook-7b935-default-rtdb.asia-southeast1.firebasedatabase.app/guestbook.json");
+            const data = await response.json();
+
+            if (response.ok) {
+                let entries = "";
+
+                // Loop melalui data dari API dan tampilkan di bawah form
+                for (const key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        const entry = data[key];
+                        entries += `
+                            <p><strong>Nama:</strong> ${entry.nama}</p>
+                            <p><strong>Kehadiran:</strong> ${entry.kehadiran}</p>
+                            <p><strong>Ucapan:</strong> ${entry.ucapan}</p>
+                            <hr>
+                        `;
+                    }
+                }
+
+                guestbookEntries.innerHTML = entries;
+            }
+        }
+
+        // Panggil fungsi untuk mengambil data saat halaman dimuat
+        fetchGuestbookData();
 
         guestbookForm.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -49,7 +76,7 @@
             });
 
             if (response.ok) {
-                // Tambahkan data ke tampilan di bawah form
+                // Tambahkan data yang baru ditambahkan ke tampilan di bawah form
                 guestbookEntries.innerHTML += `
                     <p><strong>Nama:</strong> ${data.nama}</p>
                     <p><strong>Kehadiran:</strong> ${data.kehadiran}</p>
