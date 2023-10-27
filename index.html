@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="guestbook.css">
+    <title>Buku Tamu</title>
+</head>
+<body>
+    <section class="guestbook">
+        <form id="guestbook-form">
+            <div class="guestbook-form">
+                <label for="nama">Nama:</label>
+                <input type="text" id="nama" name="nama" required>
+                <label for="kehadiran">Kehadiran:</label>
+            <select id="kehadiran" name="kehadiran" required>
+                <option value="Hadir" class="text-blue">Hadir</option>
+                <option value="Belum Pasti" class="text-green">Belum Pasti</option>
+                <option value="Tidak Hadir" class="text-red">Tidak Hadir</option>
+            </select>
+                <label for="ucapan">Ucapan:</label>
+                <textarea id="ucapan" name="ucapan" rows="4" required></textarea>
+                <input type="submit" value="Kirim" class="kirim">
+            </div>
+        </form>
+
+        <div id="guestbook-entries">
+            <!-- Data dari API akan ditampilkan di sini -->
+        </div>
+    </section>
+<script src="guestbook.js"></script>
+<script src="minidenticons.min.js" type="module"></script>
+</body>
+</html>
