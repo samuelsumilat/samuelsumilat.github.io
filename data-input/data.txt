@@ -36,7 +36,7 @@ tempat-acara1: Lokasi Akad Nikah
 alamat url acara1
 url-1: https://www.google.com/maps/place/7R67%2BH5V+GMIM+Imanuel+Leilem,+Jl.+kawangkoan-Tomohon,+Leilem,+Kec.+Sonder,+Kabupaten+Minahasa,+Sulawesi+Utara/@1.2614928,124.8129333,17z/data=!4m6!3m5!1s0x32876bfb40d65e4b:0x67e760b787718da2!8m2!3d1.2614928!4d124.8129333!16s%2Fg%2F11ngjx1l13
 
-aktifkan-acara2: ya
+aktifkan-acara2: tidak
 nama-acara2: Resepsi Pernikahan
 tanggal-acara2: Sabtu, 12 Desember 2026
 waktu-acara2: Pukul 16.00 Wita
