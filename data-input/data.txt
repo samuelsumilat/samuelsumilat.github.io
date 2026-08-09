@@ -5,18 +5,18 @@ title: Romeo & Juliet
 token: https://ia600509.us.archive.org/31/items/token_20260809/token.txt
 
 ("GROOM")
-groom: Romeo Montague
+groom: Nama Mempelai Pria
 groom-anak-ke: Pertama
-Ayah-groom: Bapaknya Romeo
-Ibu-groom: Ibunya Romeo
-alamat-groom: Di Rumah
+Ayah-groom: Nama Ayah Pria
+Ibu-groom: Nama Ibu Pria
+alamat-groom: Alamat Pria
 
 ("BRIDE")
-bride: Juliette Capulet
+bride: Nama Mempelai Wanita
 bride-anak-ke: Kedua
-Ayah-bride: Bapaknya Juliette
-Ibu-bride: Ibunya Juliette
-alamat-bride: Di Rumahnya
+Ayah-bride: Nama Ayah Wanita
+Ibu-bride: Nama Ibu Wanita
+alamat-bride: Alamat Wanita
 
 ("QUOTES 01")
 quotes1: "Ikatan pernikahan adalah kondisi manusia yang paling alami, dan kondisi dimana kamu akan menemukan kebahagiaan yang kuat."
@@ -28,19 +28,19 @@ sumber-quotes2: Pujangga
 
 ========== AKAD DAN RESEPSI ==========
 
+aktifkan-acara1: ya
 nama-acara1: Akad Nikah
 tanggal-acara1: Sabtu, 12 Desember 2026
 waktu-acara1: Pukul 12.00 Wita
 tempat-acara1: Lokasi Akad Nikah
+alamat url acara1
+url-1: https://www.google.com/maps/place/7R67%2BH5V+GMIM+Imanuel+Leilem,+Jl.+kawangkoan-Tomohon,+Leilem,+Kec.+Sonder,+Kabupaten+Minahasa,+Sulawesi+Utara/@1.2614928,124.8129333,17z/data=!4m6!3m5!1s0x32876bfb40d65e4b:0x67e760b787718da2!8m2!3d1.2614928!4d124.8129333!16s%2Fg%2F11ngjx1l13
 
+aktifkan-acara2: ya
 nama-acara2: Resepsi Pernikahan
 tanggal-acara2: Sabtu, 12 Desember 2026
 waktu-acara2: Pukul 16.00 Wita
 tempat-acara2: Lokasi Resepsi Pernikahan
-
-alamat url acara1
-url-1: https://www.google.com/maps/place/7R67%2BH5V+GMIM+Imanuel+Leilem,+Jl.+kawangkoan-Tomohon,+Leilem,+Kec.+Sonder,+Kabupaten+Minahasa,+Sulawesi+Utara/@1.2614928,124.8129333,17z/data=!4m6!3m5!1s0x32876bfb40d65e4b:0x67e760b787718da2!8m2!3d1.2614928!4d124.8129333!16s%2Fg%2F11ngjx1l13
-
 alamat url acara2
 url-2: https://www.google.com/maps/place/Four+Points+by+Sheraton+Manado,+Jl.+Piere+Tendean,+Kec.+Sario,+Kota+Manado,+Sulawesi+Utara+95111/@1.4702922,124.8307451,16z/data=!4m6!3m5!1s0x328774e2e6f8abf5:0x5d2b674b0f18ebd3!8m2!3d1.4702922!4d124.8307451!16s%2Fg%2F11c5xt87cg
 
@@ -49,32 +49,40 @@ url-3: kalender.html
 
 ========== "KISAH KAMI" ==========
 
+aktifkan-cerita-1: ya
 waktu-cerita-1: Januari 2021
 judul-cerita-1: Pertama Kali Kenal
 isi-cerita-1: Pertemuan pertama kami mungkin terasa biasa, tetapi siapa sangka itu adalah awal dari perjalanan yang berarti. Dari sekadar saling mengenal, obrolan ringan mulai mengalir, menghadirkan tawa dan rasa penasaran. Hari demi hari, kami semakin memahami satu sama lain, membangun fondasi kebersamaan yang perlahan tumbuh menjadi sesuatu yang lebih spesial.
 
+aktifkan-cerita-2: ya
 waktu-cerita-2: Mei 2022
 judul-cerita-2: Mulai Dekat
 isi-cerita-2: Seiring berjalannya waktu, kami semakin mengenal satu sama lain. Percakapan yang dulu sekadar basa-basi kini berubah menjadi diskusi mendalam tentang mimpi, harapan, dan masa depan. Kebersamaan yang terasa nyaman membuat kami sadar bahwa ada sesuatu yang lebih dari sekadar pertemanan.
 
+aktifkan-cerita-3: ya
 waktu-cerita-3: Juli 2022
 judul-cerita-3: Menyatakan Cinta
 isi-cerita-3: Saat itu, perasaan yang terpendam akhirnya terucap. Dengan penuh keberanian, aku mengungkapkan apa yang selama ini ada di hati. Kekhawatiran akan jawaban yang mungkin kudapatkan perlahan tergantikan oleh senyuman manis dan tatapan penuh kasih. Hari itu menjadi awal dari babak baru dalam perjalanan kami.
 
+aktifkan-cerita-4: tidak
 waktu-cerita-4: Agustus 2023
 judul-cerita-4: Tunangan
 isi-cerita-4: Setelah melewati banyak momen bersama, akhirnya kami memutuskan untuk membawa hubungan ini ke tahap yang lebih serius. Dalam suasana penuh kebahagiaan, cincin disematkan sebagai tanda janji untuk melangkah ke masa depan bersama. Momen ini menjadi bukti bahwa perjalanan cinta kami semakin dekat menuju ikatan yang lebih kuat.
 
 ========== "GIFT" ==========
 
+aktifkan-gift-01: ya
 gift-01: BANK BNI
 rekening-1: 1728593876
 
+aktifkan-gift-02: ya
 gift-02: BANK BRI
 rekening-2: 172859387612345
 
+aktifkan-gift-03: ya
 gift-03: DANA
 rekening-3: 085143731606
 
+aktifkan-gift-04: tidak
 gift-04: GOPAY
 rekening-4: 085143731606
