@@ -2,7 +2,7 @@ title: Romeo & Juliet
 
 ========== "DATA" ==========
 
-token: https://ia600806.us.archive.org/14/items/token_20250208_1045/token.txt
+token: https://ia600908.us.archive.org/15/items/token_202608/token.txt
 
 ("GROOM")
 groom: Nama Mempelai Pria
