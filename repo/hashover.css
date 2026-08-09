@@ -1,0 +1,4 @@
+body.hasHover button:hover{
+    background-color: var(--color-A);
+    color: var(--color-B);
+}

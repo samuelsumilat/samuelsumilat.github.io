@@ -1,0 +1,13 @@
+.groom-image{
+    background-image: var(--profil-groom);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.bride-image{
+    background-image: var(--profil-bride);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}

@@ -1,0 +1,51 @@
+.gift-01, .gift-02, .gift-03, .gift-04{
+    width: min(30vw, 30vh);
+    height: min(6vw, 6vh);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.gift-01{
+    background-image: var(--gift-01);
+    text-indent: -9999px;
+    overflow: hidden;
+}
+
+
+.gift-02{
+    background-image: var(--gift-02);
+    text-indent: -9999px;
+    overflow: hidden;
+}
+
+.gift-03{
+    background-image: var(--gift-03);
+    text-indent: -9999px;
+    overflow: hidden;
+}
+
+.gift-04{
+    background-image: var(--gift-04);
+    text-indent: -9999px;
+    overflow: hidden;
+}
+
+.copytext{
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    padding: min(0.5vw, 0.5vh);
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(0.5rem, min(4vw, 4vh), 1.5rem);
+    font-weight: bold;
+    margin: min(0.5vw, 0.5vh);
+    margin-top: 2vh;
+    border: none;
+}
+
+input:focus{
+    border: none;
+    outline: none;
+}

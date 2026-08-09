@@ -1,0 +1,40 @@
+.card-container{
+   max-width: 1200px;
+   margin:0 auto;
+   padding:1rem 1rem;
+}
+
+.card-wrap{
+   margin: 5vh;
+}
+
+.card-container .card-wrap{
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+   gap:2rem;
+}
+
+/*#gift .card-container .card-wrap{
+   grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+}*/
+
+.card-container .card-wrap .card{
+   text-align: center;
+   padding:3rem 2rem;
+   background: var(--color-E);
+   border-radius: min(4vw, 4vh);
+   box-shadow: 0 0 min(1vw, 1vh) hsla(var(--h), var(--s_A), var(--l_A), 0.4);
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.card-container .card-wrap .card .box{
+   height: 10rem;
+   width: 10rem
+}
+
+.box{
+   background-color: #444;
+   border-radius: min(2vw, 2vh);
+}
