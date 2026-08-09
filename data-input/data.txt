@@ -5,18 +5,18 @@ title: Romeo & Juliet
 token: https://ia600509.us.archive.org/31/items/token_20260809/token.txt
 
 ("GROOM")
-groom: Nama Mempelai Pria
+groom: Romeo Montague
 groom-anak-ke: Pertama
-Ayah-groom: Nama Ayah Pria
-Ibu-groom: Nama Ibu Pria
-alamat-groom: Alamat Pria
+Ayah-groom: Bapaknya Romeo
+Ibu-groom: Ibunya Romeo
+alamat-groom: Di Rumah
 
 ("BRIDE")
-bride: Nama Mempelai Wanita
+bride: Juliette Capulet
 bride-anak-ke: Kedua
-Ayah-bride: Nama Ayah Wanita
-Ibu-bride: Nama Ibu Wanita
-alamat-bride: Alamat Wanita
+Ayah-bride: Bapaknya Juliette
+Ibu-bride: Ibunya Juliette
+alamat-bride: Di Rumahnya
 
 ("QUOTES 01")
 quotes1: "Ikatan pernikahan adalah kondisi manusia yang paling alami, dan kondisi dimana kamu akan menemukan kebahagiaan yang kuat."
