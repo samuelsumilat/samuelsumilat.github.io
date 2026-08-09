@@ -1,142 +1,65 @@
-document.addEventListener('DOMContentLoaded', () => {
-    fetch('data-input/data.txt')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Gagal membaca data.txt. Status: ${response.status}`);
-            }
-            return response.text();
-        })
-        .then(data => {
-            // Parsing data rekening dan gift
-            const rekening = {};
-            const gifts = {};
+document.addEventListener("DOMContentLoaded", function () {
+    function loadGift() {
+        if (typeof weddingData === "undefined") {
+            console.error("weddingData tidak ditemukan.");
+            return;
+        }
 
-            const rekeningRegex = /^rekening-(\d+):\s*(.+)$/gm;
-            let match;
-            while ((match = rekeningRegex.exec(data)) !== null) {
-                rekening[parseInt(match[1], 10)] = match[2].trim();
-            }
+        const giftSection = document.getElementById("gift");
+        if (!giftSection) {
+            console.error("Element #gift tidak ditemukan.");
+            return;
+        }
 
-            const giftRegex = /^gift-(\d+):\s*(.+)$/gm;
-            let giftMatch;
-            while ((giftMatch = giftRegex.exec(data)) !== null) {
-                gifts[parseInt(giftMatch[1], 10)] = giftMatch[2].trim();
-            }
+        let adaGift = false;
 
-            // Render kartu gift
-            const cardWrap = document.querySelector('#gift .card-wrap');
-            if (!cardWrap) {
-                console.error('Element #gift .card-wrap tidak ditemukan.');
-                return;
+        for (let i = 1; i <= 4; i++) {
+            const nomor = String(i).padStart(2, "0");
+            const status = String(weddingData["aktifkan-gift-" + nomor] || "").trim().toLowerCase();
+            const nama = weddingData["gift-" + nomor] || "";
+            const rekening = weddingData["rekening-" + i] || "";
+            const card = giftSection.querySelector(".gift-card-" + nomor);
+
+            if (!card) continue;
+
+            if (status !== "ya") {
+                card.style.display = "none";
+                continue;
             }
 
-            cardWrap.innerHTML = '';
+            card.style.display = "block";
+            adaGift = true;
 
-            const nomorGift = Object.keys(gifts)
-                .map(Number)
-                .sort((a, b) => a - b);
+            let namaBank = card.querySelector(".gift-name");
+            if (!namaBank) {
+                namaBank = document.createElement("h4");
+                namaBank.className = "gift-name";
+                const giftIcon = card.querySelector(".gift-" + nomor);
+                if (giftIcon) {
+                    giftIcon.insertAdjacentElement("afterend", namaBank);
+                } else {
+                    card.prepend(namaBank);
+                }
+            }
 
-            nomorGift.forEach(nomor => {
-                const card = document.createElement('div');
-                card.className = 'card top';
+            namaBank.textContent = nama;
+            namaBank.style.display = "block";
+            namaBank.style.visibility = "visible";
+            namaBank.style.opacity = "1";
+            namaBank.style.color = "inherit";
+            namaBank.style.position = "relative";
+            namaBank.style.zIndex = "999";
+            namaBank.style.textAlign = "center";
 
-                const gift = document.createElement('div');
-                gift.className = 'gift-name';
-                gift.textContent = gifts[nomor];
+            const input = document.getElementById("input-" + i);
+            if (input) {
+                input.value = rekening;
+            }
+        }
 
-                const giftItem = document.createElement('div');
-                giftItem.className = 'gift-item';
+        giftSection.style.display = adaGift ? "" : "none";
+        console.log("Gift berhasil dimuat:", weddingData);
+    }
 
-                const input = document.createElement('input');
-                input.id = `input-${nomor}`;
-                input.type = 'text';
-                input.readOnly = true;
-                input.className = 'copytext';
-                input.value = rekening[nomor] || '';
-
-                const button = document.createElement('button');
-                button.className = 'copybtn';
-                button.type = 'button';
-
-                const buttonText = document.createElement('h5');
-                buttonText.textContent = 'Copy';
-                button.appendChild(buttonText);
-
-                giftItem.appendChild(input);
-                giftItem.appendChild(button);
-                card.appendChild(gift);
-                card.appendChild(giftItem);
-                cardWrap.appendChild(card);
-            });
-
-            // Event listener untuk tombol copy
-            const copyBtns = document.querySelectorAll('.copybtn');
-            const copyTexts = document.querySelectorAll('.copytext');
-
-            copyBtns.forEach((copyBtn, index) => {
-                copyBtn.addEventListener('click', async () => {
-                    if (!copyTexts[index]) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Gagal Menyalin',
-                            text: 'Elemen teks tidak ditemukan.',
-                            showConfirmButton: false,
-                            timer: 1000
-                        });
-                        return;
-                    }
-
-                    const textToCopy = copyTexts[index].value || 
-                                       copyTexts[index].textContent || 
-                                       copyTexts[index].innerText;
-
-                    if (!textToCopy) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Gagal Menyalin',
-                            text: 'Tidak ada teks yang bisa disalin.',
-                            showConfirmButton: false,
-                            timer: 1000
-                        });
-                        return;
-                    }
-
-                    try {
-                        if (navigator.clipboard) {
-                            await navigator.clipboard.writeText(textToCopy);
-                        } else {
-                            const textArea = document.createElement('textarea');
-                            textArea.value = textToCopy;
-                            document.body.appendChild(textArea);
-                            textArea.select();
-                            const success = document.execCommand('copy');
-                            document.body.removeChild(textArea);
-
-                            if (!success) {
-                                throw new Error('Gagal menyalin teks.');
-                            }
-                        }
-
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Teks Berhasil Disalin',
-                            showConfirmButton: false,
-                            timer: 1000
-                        });
-                    } catch (err) {
-                        console.error('Tidak dapat menyalin teks:', err);
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Gagal Menyalin',
-                            text: err.message || 'Terjadi kesalahan saat menyalin teks.',
-                            showConfirmButton: false,
-                            timer: 1000
-                        });
-                    }
-                });
-            });
-        })
-        .catch(error => {
-            console.error('Terjadi kesalahan:', error);
-        });
+    document.addEventListener("weddingDataReady", loadGift);
 });
