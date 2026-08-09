@@ -1,1 +1,226 @@
-halo dunia
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="assets/favicon.svg" type="image/x-icon">
+    <title class="title"></title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="repo/css-reset.css">
+    <link rel="stylesheet" href="repo/navbar-popup.css">
+    <link rel="stylesheet" href="repo/reveal.css">
+    <link rel="stylesheet" href="repo/style.css">
+    <link rel="stylesheet" href="repo/card.css">
+    <link rel="stylesheet" href="repo/home.css">
+    <link rel="stylesheet" href="repo/profil.css">
+    <link rel="stylesheet" href="repo/acara.css">
+    <link rel="stylesheet" href="repo/countdown.css">
+    <link rel="stylesheet" href="repo/gallery.css">
+    <link rel="stylesheet" href="repo/timeline.css">
+    <link rel="stylesheet" href="repo/cerita.css">
+    <link rel="stylesheet" href="repo/gift.css">
+    <link rel="stylesheet" href="repo/guestbook.css">
+    <link rel="stylesheet" href="repo/hashover.css">
+
+    <style>
+        .loading-spinner {
+            display: block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--color-C);
+            border-radius: 50%;
+            border-top: 3px solid var(--color-D);
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .button-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body oncontextmenu="return false" oncopy="return false" oncut="return false" onpaste="return false">
+
+    <!-- Header / Popup -->
+    <header>
+        <div class="popup">
+            <div class="popup-wrap">
+                <div class="popup-img"></div>
+                <p class="top-text">The Wedding Of</p>
+                <div class="popup-item">
+                    <h1 class="groom"></h1>
+                    <h1 class="h1">dan</h1>
+                    <h1 class="bride"></h1>
+                </div>
+                <div class="kepada">
+                    <h5>Dengan Hormat Mengundang:</h5>
+                    <h4 id="default">Tamu Terhormat</h4>
+                </div>
+                <button id="text_popup" class="close" disabled>
+                    <div class="button-content">
+                        <div class="loading-spinner"></div>
+                        <h5 class="button-text">Buka Undangan</h5>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav id="navbar"></nav>
+    <div class="bottom-gradient"></div>
+
+    <!-- Main Content -->
+    <main>
+        <article id="home"></article>
+
+        <article id="profil"></article>
+
+        <article id="acara">
+            <div class="card-container">
+                <h3>Acara</h3>
+                <div id="input-acara"></div>
+                <div class="card-wrap bottom">
+                    <div class="card">
+                        <h4>Save The Date</h4>
+                        <div class="tanggal-acara1"></div>
+                        <div class="simply-countdown"></div>
+                        <div id="countdown-btn"></div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article id="galeri">
+            <h3>Galeri</h3>
+            <section class="gallery-container">
+                <div class="gallery">
+                    <div class="modal" id="myModal">
+                        <span class="close" id="closeBtn">&times;</span>
+                        <img class="modal-content" id="modalImg">
+                        <a class="prev" id="prevBtn">&#10094;</a>
+                        <a class="next" id="nextBtn">&#10095;</a>
+                    </div>
+                    <div class="thumbnails" id="thumbnails"></div>
+                </div>
+            </section>
+        </article>
+
+        <article id="cerita" class="cerita"></article>
+
+        <article id="gift">
+            <h3>Gift</h3>
+            <div class="card-container">
+                <div class="card-wrap">
+                    <div class="card top">
+                        <div class="gift-01"></div>
+                        <div class="gift-item">
+                            <input id="input-1" type="text" readonly class="copytext">
+                            <button class="copybtn"><h5>Copy</h5></button>
+                        </div>
+                    </div>
+                    <div class="card top">
+                        <div class="gift-02"></div>
+                        <div class="gift-item">
+                            <input id="input-2" type="text" readonly class="copytext">
+                            <button class="copybtn"><h5>Copy</h5></button>
+                        </div>
+                    </div>
+                    <div class="card top">
+                        <div class="gift-03"></div>
+                        <div class="gift-item">
+                            <input id="input-3" type="text" readonly class="copytext">
+                            <button class="copybtn"><h5>Copy</h5></button>
+                        </div>
+                    </div>
+                    <div class="card top">
+                        <div class="gift-04"></div>
+                        <div class="gift-item">
+                            <input id="input-4" type="text" readonly class="copytext">
+                            <button class="copybtn"><h5>Copy</h5></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <article id="ucapan">
+            <h3>RSVP / Ucapan</h3>
+        </article>
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        function toggleLoading(show) {
+            const spinner = document.querySelector('.loading-spinner');
+            const buttonText = document.querySelector('.button-text');
+            const openButton = document.getElementById('text_popup');
+
+            if (show) {
+                spinner.style.display = 'block';
+                buttonText.style.display = 'none';
+                openButton.disabled = true;
+            } else {
+                spinner.style.display = 'none';
+                buttonText.style.display = 'block';
+                openButton.disabled = false;
+            }
+            console.log('Loading:', show ? 'Aktif' : 'Nonaktif');
+        }
+
+        function updateNameFromHash() {
+            toggleLoading(true);
+
+            try {
+                const hash = window.location.hash.substring(1);
+                const reservedAnchors = ['ucapan', 'galeri', 'acara', 'cerita', 'gift', 'home', 'profil'];
+
+                if (hash && !reservedAnchors.includes(hash)) {
+                    const name = hash.replace(/_/g, ' ');
+                    const nameElement = document.getElementById('default');
+                    nameElement.textContent = name;
+                }
+            } catch (error) {
+                console.error('Error loading names:', error);
+            } finally {
+                toggleLoading(false);
+            }
+        }
+
+        window.addEventListener('load', updateNameFromHash);
+        window.addEventListener('hashchange', updateNameFromHash);
+    </script>
+
+    <script src="repo/navbar-popup.js" defer></script>
+    <script src="repo/data-input.js"></script>
+    <script src="repo/reveal.js"></script>
+    <script src="repo/home.js"></script>
+    <script src="repo/profil.js"></script>
+    <script src="repo/acara.js"></script>
+    <script src="repo/countdownsimply.js"></script>
+    <script src="repo/countdown.js"></script>
+    <script src="repo/gallery.js" defer></script>
+    <script src="repo/cerita.js"></script>
+    <script src="repo/gift.js"></script>
+    <script src="repo/gift-icon.js"></script>
+    <script src="repo/guestbook.js"></script>
+    <script src="repo/hashover.js"></script>
+    <script src="repo/copy.js"></script>
+    <script src="repo/copy-alert.js"></script>
+    <script type="module" src="repo/minidenticons.min.js" defer></script>
+</body>
+</html>

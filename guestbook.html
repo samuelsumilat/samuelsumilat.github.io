@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="assets/favicon.svg" type="image/x-icon">
+    <title class="title"></title>
+    <style>
+        #komentar-list {
+            width: 80vw;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: var(--color-E);
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            margin-bottom: 10vh;
+        }
+
+        .post {
+            background: var(--color-E);
+            border: 1px solid #ccc;
+            padding: min(0.5vw, 0.5vh);
+            margin: min(2vw, 2vh);
+            border-radius: min(2vw, 2vh);
+            text-align: left;
+        }
+
+        .post-container {
+            display: flex;
+        }
+
+        .post-wrap {
+            padding: min(1vw, 1vh);
+            width: 100%;
+        }
+
+        .post-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .post p {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: clamp(0.4rem, min(3vw, 3vh), 1.3rem);
+            margin-top: min(2vw, 2vh);
+            margin-bottom: min(2vw, 2vh);
+            margin-left: min(0.5vw, 0.5vh);
+        }
+
+        .Hadir {
+            color: blue;
+            background-color: rgb(238, 238, 238);
+        }
+
+        .Belum {
+            color: green;
+            background-color: rgb(238, 238, 238);
+        }
+
+        .Tidak {
+            color: red;
+            background-color: rgb(238, 238, 238);
+        }
+
+        minidenticon-svg svg {
+            border-radius: 50%;
+            background-color: #e9e9e9;
+            width: min(10vw, 40px);
+            align-items: center;
+            justify-content: center;
+            margin: min(1vw, 1vh);
+            margin-top: min(2vw, 2vh);
+        }
+
+        .item {
+            padding: min(0.5vw, 0.5vh);
+            align-items: center;
+        }
+
+        .kbtn {
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .kbtn a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body oncontextmenu="return false" oncopy="return false" oncut="return false" onpaste="return false">
+
+    <button class="kbtn"><a href="controlpanel.html">Kembali</a></button>
+
+    <article id="ucapan">
+        <h1>Buku Tamu</h1>
+        <div id="komentar-list"></div>
+    </article>
+
+    <script>
+        async function fetchConfig() {
+            try {
+                const response = await fetch('data-input/data.txt');
+                if (!response.ok) {
+                    throw new Error('Gagal mengambil konfigurasi');
+                }
+                const text = await response.text();
+                const tokenLine = text.split('\n').find(line => line.startsWith('token:'));
+                if (!tokenLine) {
+                    throw new Error('URL token tidak ditemukan dalam data.txt');
+                }
+                const tokenUrl = tokenLine.split('token:')[1].trim();
+                const tokenResponse = await fetch(tokenUrl);
+                if (!tokenResponse.ok) {
+                    throw new Error('Gagal mengambil konfigurasi dari URL token');
+                }
+                const tokenText = await tokenResponse.text();
+                const [token, username, repo] = tokenText.split('\n').map(line => line.trim());
+
+                return {
+                    token: token,
+                    username: username,
+                    repo: repo
+                };
+            } catch (error) {
+                console.error('Error fetching config:', error);
+                throw error;
+            }
+        }
+
+        function formatTimestamp(timestamp) {
+            const date = new Date(timestamp);
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            return date.toLocaleDateString('id-ID', options);
+        }
+
+        async function bacaDataKomentar(API_TOKEN, repoOwner, repoName) {
+            const filePath = 'data-input/guestbook.txt';
+            const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
+
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': `token ${API_TOKEN}`
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('Gagal membaca data komentar');
+                }
+                const data = await response.json();
+                const content = atob(data.content);
+                return content.split('\n').filter(line => line.trim() !== "");
+            } catch (error) {
+                console.error('Error reading comments:', error);
+                throw error;
+            }
+        }
+
+        async function hapusKomentar(API_TOKEN, repoOwner, repoName, komentar, sha) {
+            const filePath = 'data-input/guestbook.txt';
+            const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
+
+            const komentarData = await bacaDataKomentar(API_TOKEN, repoOwner, repoName);
+            const updatedKomentar = komentarData.filter(line => {
+                const existingKomentar = JSON.parse(line);
+                return existingKomentar.timestamp !== komentar.timestamp;
+            });
+
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${API_TOKEN}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: 'Menghapus komentar',
+                    content: btoa(updatedKomentar.join('\n')),
+                    sha: sha
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Gagal menghapus komentar');
+            }
+            return response.json();
+        }
+
+        async function tampilkanKomentar(komentarList) {
+            try {
+                const config = await fetchConfig();
+                const API_TOKEN = config.token;
+                const repoOwner = config.username;
+                const repoName = config.repo;
+
+                const komentarData = await bacaDataKomentar(API_TOKEN, repoOwner, repoName);
+                komentarList.innerHTML = "";
+
+                const komentarObjek = komentarData.map(komentar => JSON.parse(komentar));
+                komentarObjek.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+                komentarObjek.forEach(komentar => {
+                    const komentarDiv = document.createElement("div");
+                    komentarDiv.classList.add("post");
+
+                    const timestamp = formatTimestamp(komentar.timestamp);
+                    const komentarEncoded = encodeURIComponent(JSON.stringify(komentar));
+
+                    komentarDiv.innerHTML = `
+                        <section class="post-container">
+                            <minidenticon-svg username="${komentar.nama}"></minidenticon-svg>
+                            <div class="post-wrap">
+                                <div class="post-item">
+                                    <h5 class="post-name item">${komentar.nama}</h5>
+                                    <h6 class="post-status item"><span class="${komentar.kehadiran}">${komentar.kehadiran}</span></h6>
+                                    <button class="delete-btn" onclick="konfirmasiHapus('${komentarEncoded}')">Hapus</button>
+                                </div>
+                                <p class="post-comment">${komentar.pesan}</p>
+                                <h6 class="post-date">${timestamp}</h6>
+                            </div>
+                        </section>
+                    `;
+
+                    komentarList.appendChild(komentarDiv);
+                });
+            } catch (error) {
+                console.error('Error displaying comments:', error);
+                alert('Terjadi kesalahan saat menampilkan komentar');
+            }
+        }
+
+        window.konfirmasiHapus = (komentarStr) => {
+            const konfirmasi = confirm("Apakah Anda yakin ingin menghapus komentar ini?");
+            if (konfirmasi) {
+                hapusKomentarHandler(komentarStr);
+            }
+        };
+
+        window.hapusKomentarHandler = async (komentarStr) => {
+            try {
+                const config = await fetchConfig();
+                const API_TOKEN = config.token;
+                const repoOwner = config.username;
+                const repoName = config.repo;
+                const komentar = JSON.parse(decodeURIComponent(komentarStr));
+
+                const filePath = 'data-input/guestbook.txt';
+                const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
+
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': `token ${API_TOKEN}`
+                    }
+                });
+                const data = await response.json();
+                const sha = data.sha;
+
+                await hapusKomentar(API_TOKEN, repoOwner, repoName, komentar, sha);
+                alert('Komentar berhasil dihapus!');
+                tampilkanKomentar(document.getElementById("komentar-list"));
+            } catch (error) {
+                console.error('Error deleting comment:', error);
+                alert('Gagal menghapus komentar: ' + error.message);
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", async function () {
+            try {
+                const komentarList = document.getElementById("komentar-list");
+                tampilkanKomentar(komentarList);
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan dalam memuat konfigurasi');
+            }
+        });
+    </script>
+
+    <script type="module" src="repo/minidenticons.min.js" defer></script>
+</body>
+</html>

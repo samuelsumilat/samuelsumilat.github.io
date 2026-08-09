@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalender</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #555;
+        }
+        .calendar {
+            background-color: #ffff;
+            border: 1px solid #313135;
+            border-radius: 5px;
+            padding: 5px;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .day {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 5px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .day-head {
+            background-color: #ececec;
+            border: 1px solid #ddd;
+            padding: 5px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .jumat {
+            color: #106800;
+        }
+        .sabtu {
+            color: #2582dd;
+        }
+        .minggu {
+            background-color: #ffffea;
+            color: red;
+        }
+        .day.empty {
+            background-color: transparent;
+            border: none;
+        }
+        .libur {
+            background-color: #fff;
+            color: red;
+        }
+        .day.special {
+            background-color: #ffcccb;
+            font-weight: bold;
+        }
+        .month {
+            text-align: center;
+            font-size: 1em;
+            margin: 5px 0 5px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="month" id="monthHeader"></div>
+    <div class="calendar" id="calendar"></div>
+    <div id="eventList"></div>
+
+    <script>
+        async function fetchData() {
+            try {
+                const response = await fetch("data-input/data.txt");
+                const text = await response.text();
+                return parseDataFile(text);
+            } catch (error) {
+                console.error("Gagal memuat data:", error);
+                return null;
+            }
+        }
+
+        function parseDataFile(data) {
+            const lines = data.split('\n');
+            const result = {};
+
+            for (const line of lines) {
+                if (!line.trim() || line.startsWith("==========")) continue;
+
+                if (line.includes(':')) {
+                    const [key, value] = line.split(':').map(part => part.trim());
+                    result[key] = value;
+                }
+            }
+            return result;
+        }
+
+        function parseDate(dateString) {
+            const months = {
+                "Januari": 0, "Februari": 1, "Maret": 2, "April": 3, "Mei": 4, "Juni": 5,
+                "Juli": 6, "Agustus": 7, "September": 8, "Oktober": 9, "November": 10, "Desember": 11
+            };
+            const parts = dateString.split(" ");
+            return {
+                date: parseInt(parts[1], 10),
+                month: months[parts[2]],
+                year: parseInt(parts[3], 10)
+            };
+        }
+
+        async function generateCalendar() {
+            const data = await fetchData();
+            if (!data) return;
+
+            const acara1Date = parseDate(data["tanggal-acara1"]);
+            const acara2Date = parseDate(data["tanggal-acara2"]);
+
+            const specialDates = [
+                { ...acara1Date, label: data["nama-acara1"], className: "special" },
+                { ...acara2Date, label: data["nama-acara2"], className: "special" }
+            ];
+
+            const config = {
+                month: acara1Date.month,
+                year: acara2Date.year,
+                specialDates
+            };
+
+            renderCalendar(config);
+        }
+
+        function renderCalendar(config) {
+            const calendar = document.getElementById('calendar');
+            const monthHeader = document.getElementById('monthHeader');
+            const eventList = document.getElementById('eventList');
+
+            const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+            ];
+            monthHeader.textContent = `${monthNames[config.month]} ${config.year}`;
+
+            const daysOfWeek = ['M', 'S', 'S', 'R', 'K', 'J', 'S'];
+            calendar.innerHTML = daysOfWeek.map(day => `<div class="day-head">${day}</div>`).join('');
+
+            const daysInMonth = new Date(config.year, config.month + 1, 0).getDate();
+            const firstDay = new Date(config.year, config.month, 1).getDay();
+            const dayCounter = (firstDay + 7) % 7;
+
+            for (let i = 0; i < dayCounter; i++) {
+                calendar.innerHTML += `<div class="day empty"></div>`;
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const currentDate = new Date(config.year, config.month, day);
+                const specialDate = config.specialDates.find(d => d.date === day);
+
+                let className = 'day';
+                if (specialDate) className += ` ${specialDate.className}`;
+                if (currentDate.getDay() === 6) className += ' sabtu';
+                if (currentDate.getDay() === 5) className += ' jumat';
+                if (currentDate.getDay() === 0) className += ' minggu';
+
+                calendar.innerHTML += `<div class="${className}">${day}</div>`;
+            }
+
+            eventList.innerHTML = '<ul>' + config.specialDates
+                .map(d => `<li><p>${d.date} ${monthNames[d.month]} ${d.year} - ${d.label}</p></li>`)
+                .join('') + '</ul>';
+        }
+
+        generateCalendar();
+    </script>
+</body>
+</html>
