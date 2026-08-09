@@ -5,7 +5,7 @@ title: Romeo & Juliet
 token: https://ia600509.us.archive.org/31/items/token_20260809/token.txt
 
 ("GROOM")
-groom: Nama Mempelai Pria
+groom: Romeo
 groom-anak-ke: Pertama
 Ayah-groom: Nama Ayah Pria
 Ibu-groom: Nama Ibu Pria
