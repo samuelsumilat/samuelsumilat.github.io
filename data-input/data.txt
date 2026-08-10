@@ -64,7 +64,7 @@ waktu-cerita-3: Juli 2022
 judul-cerita-3: Menyatakan Cinta
 isi-cerita-3: Saat itu, perasaan yang terpendam akhirnya terucap. Dengan penuh keberanian, aku mengungkapkan apa yang selama ini ada di hati. Kekhawatiran akan jawaban yang mungkin kudapatkan perlahan tergantikan oleh senyuman manis dan tatapan penuh kasih. Hari itu menjadi awal dari babak baru dalam perjalanan kami.
 
-aktifkan-cerita-4: tidak
+aktifkan-cerita-4: ya
 waktu-cerita-4: Agustus 2023
 judul-cerita-4: Tunangan
 isi-cerita-4: Setelah melewati banyak momen bersama, akhirnya kami memutuskan untuk membawa hubungan ini ke tahap yang lebih serius. Dalam suasana penuh kebahagiaan, cincin disematkan sebagai tanda janji untuk melangkah ke masa depan bersama. Momen ini menjadi bukti bahwa perjalanan cinta kami semakin dekat menuju ikatan yang lebih kuat.
@@ -83,6 +83,6 @@ aktifkan-gift-03: ya
 gift-03: DANA
 rekening-3: 085143731606
 
-aktifkan-gift-04: tidak
+aktifkan-gift-04: ya
 gift-04: GOPAY
 rekening-4: 085143731606
