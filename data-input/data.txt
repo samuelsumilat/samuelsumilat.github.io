@@ -13,7 +13,7 @@ alamat-groom: Alamat Pria
 
 ("BRIDE")
 bride: Juliette Capulet
-bride-anak-ke: Kedua
+bride-anak-ke: Pertama
 Ayah-bride: Nama Ayah Wanita
 Ibu-bride: Nama Ibu Wanita
 alamat-bride: Alamat Wanita
