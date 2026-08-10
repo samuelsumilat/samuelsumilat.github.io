@@ -28,7 +28,7 @@ sumber-quotes2: Pujangga
 
 ========== AKAD DAN RESEPSI ==========
 
-aktifkan-acara1: ya
+aktifkan-acara1: tidak
 nama-acara1: Akad Nikah
 tanggal-acara1: Sabtu, 12 Desember 2026
 waktu-acara1: Pukul 01.00 WITA
