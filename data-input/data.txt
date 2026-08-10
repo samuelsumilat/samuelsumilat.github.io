@@ -6,7 +6,7 @@ token: https://ia600509.us.archive.org/31/items/token_20260809/token.txt
 
 ("GROOM")
 groom: Romeo
-groom-anak-ke: Pertama
+groom-anak-ke: Kesepuluh
 Ayah-groom: Nama Ayah Pria
 Ibu-groom: Nama Ibu Pria
 alamat-groom: Alamat Pria
@@ -30,7 +30,7 @@ sumber-quotes2: Pujangga
 
 aktifkan-acara1: ya
 nama-acara1: Akad Nikah
-tanggal-acara1: Sabtu, 12 Desember 2026
+tanggal-acara1: Jumat, 11 Desember 2026
 waktu-acara1: Pukul 12.00 Wita
 tempat-acara1: Lokasi Akad Nikah
 alamat url acara1
