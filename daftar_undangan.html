@@ -718,41 +718,59 @@ return String(value)
 }
 
 function renderNames(namesToRender) {
-listElement.innerHTML = "";
-if (!namesToRender.length) {
-listElement.innerHTML = `
-<tr>
-<td colspan="4" class="empty-state">
-<div class="empty-icon">👥</div>
-<strong>Tidak ada nama ditemukan</strong>
-<span>Tambahkan nama undangan atau ubah pencarian Anda.</span>
-</td>
-</tr>`;
-return;
-}
-namesToRender.forEach((name, index) => {
-const hash = name.replace(/\s+/g, "_");
-const fullURL = `${baseURL}#${encodeURIComponent(hash)}`;
-const safeName = escapeHTML(name);
-const safeURL = escapeHTML(fullURL);
-const tr = document.createElement("tr");
-tr.innerHTML = `
-<th class="number-cell">${index + 1}</th>
-<td class="name-cell">${safeName}</td>
-<td class="url-cell">
-<div class="url-group">
-<input type="text" value="${safeURL}" readonly>
-<button type="button" class="btn btn-outline" onclick='shareURL(${JSON.stringify(name)}, ${JSON.stringify(fullURL)})'>📤 Kirim</button>
-<button type="button" class="btn btn-primary" onclick='openInvitation(${JSON.stringify(fullURL)})'>👁 Lihat</button>
-</div>
-</td>
-<td class="action-cell">
-<div class="action-group">
-${index !== 0 ? `<button type="button" class="btn btn-danger" onclick='deleteName(${JSON.stringify(name)})'>🗑 Hapus</button>` : `<span style="color:var(--muted); font-size:.7rem;">Nama utama</span>`}
-</div>
-</td>`;
-listElement.appendChild(tr);
-});
+  listElement.innerHTML = "";
+
+  if (!namesToRender.length) {
+    listElement.innerHTML = `
+      <tr>
+        <td colspan="4" class="empty-state">
+          <div class="empty-icon">👥</div>
+          <strong>Tidak ada nama ditemukan</strong>
+          <span>Tambahkan nama undangan atau ubah pencarian Anda.</span>
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  namesToRender.forEach((name, index) => {
+    const hash = name.replace(/\s+/g, "_");
+    const encodedHash = encodeURIComponent(hash).replace(/%2F/gi, "/");
+    const fullURL = `${baseURL}#${encodedHash}`;
+
+    const safeName = escapeHTML(name);
+    const safeURL = escapeHTML(fullURL);
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <th class="number-cell">${index + 1}</th>
+      <td class="name-cell">${safeName}</td>
+      <td class="url-cell">
+        <div class="url-group">
+          <input type="text" value="${safeURL}" readonly>
+          <button type="button" class="btn btn-outline" onclick='shareURL(${JSON.stringify(name)}, ${JSON.stringify(fullURL)})'>
+            📤 Kirim
+          </button>
+          <button type="button" class="btn btn-primary" onclick='openInvitation(${JSON.stringify(fullURL)})'>
+            👁 Lihat
+          </button>
+        </div>
+      </td>
+      <td class="action-cell">
+        <div class="action-group">
+          ${
+            index !== 0
+              ? `<button type="button" class="btn btn-danger" onclick='deleteName(${JSON.stringify(name)})'>
+                   🗑 Hapus
+                 </button>`
+              : `<span style="color:var(--muted); font-size:.7rem;">Nama utama</span>`
+          }
+        </div>
+      </td>
+    `;
+
+    listElement.appendChild(tr);
+  });
 }
 
 function openInvitation(url) { window.open(url, "_blank"); }
