@@ -1,0 +1,2 @@
+
+{"nama":"Kak Sem","pesan":"Selamat atas pernikahannya, semoga bahagia dan langgeng selamanya","kehadiran":"Tidak Hadir","timestamp":"2026-08-10T08:08:33.045Z","uniqueCode":"Kak Sem-2026-08-10T08:08:33.045Z"}
