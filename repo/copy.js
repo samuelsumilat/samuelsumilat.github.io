@@ -3,7 +3,6 @@ const copyTexts = document.querySelectorAll('.copytext');
 
 copyBtns.forEach((copyBtn, index) => {
   copyBtn.addEventListener('click', async () => {
-    // Pastikan elemen yang sesuai ada
     if (!copyTexts[index]) {
       console.error('Elemen teks yang akan disalin tidak ditemukan.');
       Swal.fire({
@@ -16,7 +15,6 @@ copyBtns.forEach((copyBtn, index) => {
       return;
     }
 
-    // Ambil teks dari elemen yang sesuai
     const textToCopy = copyTexts[index].value || copyTexts[index].textContent || copyTexts[index].innerText;
 
     if (!textToCopy) {
@@ -32,7 +30,6 @@ copyBtns.forEach((copyBtn, index) => {
     }
 
     try {
-      // Cek apakah clipboard API tersedia
       if (navigator.clipboard) {
         await navigator.clipboard.writeText(textToCopy);
       } else {
@@ -48,8 +45,7 @@ copyBtns.forEach((copyBtn, index) => {
           throw new Error('Gagal menyalin teks menggunakan fallback.');
         }
       }
-
-      // Berikan feedback bahwa teks berhasil disalin
+      
       Swal.fire({
         icon: 'success',
         title: 'Teks Berhasil Disalin',

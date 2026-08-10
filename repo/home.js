@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Kode JavaScript untuk memasukkan kode HTML
+
     const home = `
         <div class="home-container">
         <div class="home-background"></div>

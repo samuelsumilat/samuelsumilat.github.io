@@ -1,21 +1,17 @@
-// Fungsi untuk mengambil konfigurasi dari file data.txt
 async function fetchConfig() {
     try {
-        // Ambil konten dari data.txt
         const response = await fetch('data-input/data.txt');
         if (!response.ok) {
             throw new Error('Gagal mengambil konfigurasi');
         }
         const text = await response.text();
 
-        // Ekstrak URL token dari konten data.txt
         const tokenLine = text.split('\n').find(line => line.startsWith('token:'));
         if (!tokenLine) {
             throw new Error('URL token tidak ditemukan dalam data.txt');
         }
         const tokenUrl = tokenLine.split('token:')[1].trim();
 
-        // Ambil konfigurasi dari URL token yang diekstrak
         const tokenResponse = await fetch(tokenUrl);
         if (!tokenResponse.ok) {
             throw new Error('Gagal mengambil konfigurasi dari URL token');
@@ -34,14 +30,12 @@ async function fetchConfig() {
     }
 }
 
-// Fungsi untuk memformat timestamp ke "dd, NamaBulan yyyy" dalam bahasa Indonesia
 function formatTimestamp(timestamp) {
     const date = new Date(timestamp);
     const options = { day: 'numeric', month: 'long', year: 'numeric' };
     return date.toLocaleDateString('id-ID', options);
 }
 
-// Fungsi untuk membaca data dari file guestbook.txt
 async function bacaDataKomentar(API_TOKEN, repoOwner, repoName) {
     const filePath = 'data-input/guestbook.txt';
     const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
@@ -56,21 +50,19 @@ async function bacaDataKomentar(API_TOKEN, repoOwner, repoName) {
             throw new Error('Gagal membaca data komentar');
         }
         const data = await response.json();
-        const content = atob(data.content); // Decode base64 content
-        return content.split('\n').filter(line => line.trim() !== ""); // Filter baris kosong
+        const content = atob(data.content);
+        return content.split('\n').filter(line => line.trim() !== "");
     } catch (error) {
         console.error('Error reading comments:', error);
         throw error;
     }
 }
 
-// Fungsi untuk menulis data ke file guestbook.txt
 async function tulisDataKomentar(API_TOKEN, repoOwner, repoName, dataBaru) {
     const filePath = 'data-input/guestbook.txt';
     const url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
 
     try {
-        // Ambil data saat ini untuk mendapatkan SHA
         const response = await fetch(url, {
             headers: {
                 'Authorization': `token ${API_TOKEN}`
@@ -82,11 +74,9 @@ async function tulisDataKomentar(API_TOKEN, repoOwner, repoName, dataBaru) {
         const data = await response.json();
         const sha = data.sha;
 
-        // Tambahkan data baru ke konten yang ada
-        const content = atob(data.content); // Decode base64 content
+        const content = atob(data.content);
         const newContent = content + '\n' + dataBaru;
 
-        // Kirim pembaruan ke GitHub
         const updateResponse = await fetch(url, {
             method: 'PUT',
             headers: {
@@ -95,7 +85,7 @@ async function tulisDataKomentar(API_TOKEN, repoOwner, repoName, dataBaru) {
             },
             body: JSON.stringify({
                 message: 'Menambahkan komentar baru',
-                content: btoa(newContent), // Encode ke base64
+                content: btoa(newContent),
                 sha: sha
             })
         });
@@ -109,7 +99,6 @@ async function tulisDataKomentar(API_TOKEN, repoOwner, repoName, dataBaru) {
     }
 }
 
-// Fungsi untuk menampilkan komentar
 async function tampilkanKomentar(komentarList) {
     try {
         const config = await fetchConfig();
@@ -118,18 +107,15 @@ async function tampilkanKomentar(komentarList) {
         const repoName = config.repo;
 
         const komentarData = await bacaDataKomentar(API_TOKEN, repoOwner, repoName);
-        komentarList.innerHTML = ""; // Hapus konten sebelumnya
+        komentarList.innerHTML = "";
 
-        // Parse setiap baris menjadi objek JSON dan urutkan berdasarkan timestamp
         const komentarObjek = komentarData.map(komentar => JSON.parse(komentar));
-        komentarObjek.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)); // Urutkan dari yang terbaru
+        komentarObjek.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
-        // Tampilkan komentar yang sudah diurutkan
         komentarObjek.forEach(komentar => {
             const komentarDiv = document.createElement("div");
             komentarDiv.classList.add("post");
 
-            // Tampilkan timestamp dengan format "dd, NamaBulan yyyy"
             const timestamp = formatTimestamp(komentar.timestamp);
 
             komentarDiv.innerHTML = `
@@ -156,7 +142,6 @@ async function tampilkanKomentar(komentarList) {
 
 document.addEventListener("DOMContentLoaded", async function () {
     try {
-        // Kode JavaScript untuk memasukkan kode HTML
         const ucapan = `
             <h3>RSVP</h3>
             <form id="guestbook-form">
@@ -176,11 +161,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         document.getElementById('ucapan').innerHTML = ucapan;
 
-        // Panggil fungsi untuk menampilkan komentar saat halaman dimuat
         const komentarList = document.getElementById("komentar-list");
         tampilkanKomentar(komentarList);
 
-        // Tambahkan event listener untuk mengirim data dan memperbarui komentar saat formulir disubmit
         const form = document.getElementById("guestbook-form");
         form.addEventListener("submit", async function(event) {
             event.preventDefault();
@@ -194,7 +177,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                 return;
             }
 
-            // Gabungkan nama dan timestamp untuk membuat kode unik
             const timestamp = new Date().toISOString();
             const uniqueCode = nama + "-" + timestamp;
 
@@ -216,8 +198,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                 alert("Pesan berhasil dikirim ke buku tamu!");
                 document.getElementById("nama").value = "";
                 document.getElementById("pesan").value = "";
-                document.getElementById("kehadiran").value = ""; // Reset kehadiran ke default
-                tampilkanKomentar(komentarList); // Perbarui tampilan komentar
+                document.getElementById("kehadiran").value = "";
+                tampilkanKomentar(komentarList);
             } catch (error) {
                 console.error('Error submitting form:', error);
                 alert("Terjadi kesalahan. Silakan coba lagi.");

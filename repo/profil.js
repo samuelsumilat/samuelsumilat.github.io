@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Kode JavaScript untuk memasukkan kode HTML
+
     const profil = `
     <h3>Bride & Groom</h3>
     <div class="card-container">
