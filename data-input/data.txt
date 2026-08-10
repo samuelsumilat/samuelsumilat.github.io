@@ -52,7 +52,7 @@ waktu-cerita-1: Januari 2021
 judul-cerita-1: Pertama Kali Kenal
 isi-cerita-1: Pertemuan pertama kami mungkin terasa biasa, tetapi siapa sangka itu adalah awal dari perjalanan yang berarti. Dari sekadar saling mengenal, obrolan ringan mulai mengalir, menghadirkan tawa dan rasa penasaran. Hari demi hari, kami semakin memahami satu sama lain, membangun fondasi kebersamaan yang perlahan tumbuh menjadi sesuatu yang lebih spesial.
 
-aktifkan-cerita-2: ya
+aktifkan-cerita-2: tidak
 waktu-cerita-2: Mei 2022
 judul-cerita-2: Mulai Dekat
 isi-cerita-2: Seiring berjalannya waktu, kami semakin mengenal satu sama lain. Percakapan yang dulu sekadar basa-basi kini berubah menjadi diskusi mendalam tentang mimpi, harapan, dan masa depan. Kebersamaan yang terasa nyaman membuat kami sadar bahwa ada sesuatu yang lebih dari sekadar pertemanan.
