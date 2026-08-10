@@ -5,14 +5,14 @@ title: Romeo & Juliet
 token: https://ia600509.us.archive.org/31/items/token_20260809/token.txt
 
 ("GROOM")
-groom: Romeo
-groom-anak-ke: Kesepuluh
+groom: Romeo Montague
+groom-anak-ke: Pertama
 Ayah-groom: Nama Ayah Pria
 Ibu-groom: Nama Ibu Pria
 alamat-groom: Alamat Pria
 
 ("BRIDE")
-bride: Nama Mempelai Wanita
+bride: Juliette Capulet
 bride-anak-ke: Kedua
 Ayah-bride: Nama Ayah Wanita
 Ibu-bride: Nama Ibu Wanita
@@ -31,7 +31,7 @@ sumber-quotes2: Pujangga
 aktifkan-acara1: ya
 nama-acara1: Akad Nikah
 tanggal-acara1: Sabtu, 12 Desember 2026
-waktu-acara1: Pukul 12.00 Wita
+waktu-acara1: Pukul 01.00 WITA
 tempat-acara1: Lokasi Akad Nikah
 alamat url acara1
 url-1: https://www.google.com/maps/place/7R67%2BH5V+GMIM+Imanuel+Leilem,+Jl.+kawangkoan-Tomohon,+Leilem,+Kec.+Sonder,+Kabupaten+Minahasa,+Sulawesi+Utara/@1.2614928,124.8129333,17z/data=!4m6!3m5!1s0x32876bfb40d65e4b:0x67e760b787718da2!8m2!3d1.2614928!4d124.8129333!16s%2Fg%2F11ngjx1l13
@@ -39,7 +39,7 @@ url-1: https://www.google.com/maps/place/7R67%2BH5V+GMIM+Imanuel+Leilem,+Jl.+kaw
 aktifkan-acara2: tidak
 nama-acara2: Resepsi Pernikahan
 tanggal-acara2: Sabtu, 12 Desember 2026
-waktu-acara2: Pukul 16.00 Wita
+waktu-acara2: Pukul 16.00 WITA
 tempat-acara2: Lokasi Resepsi Pernikahan
 alamat url acara2
 url-2: https://www.google.com/maps/place/Four+Points+by+Sheraton+Manado,+Jl.+Piere+Tendean,+Kec.+Sario,+Kota+Manado,+Sulawesi+Utara+95111/@1.4702922,124.8307451,16z/data=!4m6!3m5!1s0x328774e2e6f8abf5:0x5d2b674b0f18ebd3!8m2!3d1.4702922!4d124.8307451!16s%2Fg%2F11c5xt87cg
