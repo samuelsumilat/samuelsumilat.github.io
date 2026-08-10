@@ -83,6 +83,6 @@ aktifkan-gift-03: ya
 gift-03: DANA
 rekening-3: 085143731606
 
-aktifkan-gift-04: ya
+aktifkan-gift-04: tidak
 gift-04: GOPAY
 rekening-4: 085143731606
