@@ -7,15 +7,15 @@ token: https://ia600509.us.archive.org/31/items/token_20260809/token.txt
 ("GROOM")
 groom: Romeo Montague
 groom-anak-ke: Pertama
-Ayah-groom: Nama Ayah Pria
-Ibu-groom: Nama Ibu Pria
+Ayah-groom: Lorem Ipsum
+Ibu-groom: Ipsum Lorem
 alamat-groom: Alamat Pria
 
 ("BRIDE")
 bride: Juliette Capulet
-bride-anak-ke: Pertama
-Ayah-bride: Nama Ayah Wanita
-Ibu-bride: Nama Ibu Wanita
+bride-anak-ke: Kedua
+Ayah-bride: Lorem Ipsum
+Ibu-bride: Ipsum Lorem
 alamat-bride: Alamat Wanita
 
 ("QUOTES 01")
